@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@fortawesome/vue-fontawesome": "^3.0.8",
+    "@nuxt/bridge": "^3.2.1",
     "@nuxtjs/tailwindcss": "^6.12.0",
     "@tanstack/vue-table": "^8.17.3",
     "@vue-hero-icons/solid": "^1.7.2",
