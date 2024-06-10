@@ -1,0 +1,25 @@
+ul {
+    list-style: none;
+  }
+  
+  ul > li {
+    &::before {
+      content: "𒄟";
+      transform: scale(0.2);
+      display: inline-block;
+      animation: pulse infinite alternate 0.9s;
+    }
+    @for $i from 1 through 10 {
+      &:nth-child(#{$i}) {
+        &::before {
+          animation-delay: -#{$i / 5}s;
+        }
+      }
+    }
+  }
+  
+  @keyframes pulse {
+    to {
+      transform: scale(0.69);
+    }
+  }
