@@ -15,7 +15,7 @@
 
 <script lang="ts">
 import { dogApi } from "../../api/dog-api";
-
+// console.log(dogApi)
 export default defineComponent({
   setup() {
     const dogs = ref([]);
