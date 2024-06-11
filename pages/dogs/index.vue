@@ -20,7 +20,7 @@ export default defineComponent({
   setup() {
     const dogs = ref([]);
 
-    fetch(process.env.URL_API_DOGS ?? "http://localhost:4000/dogs")
+    fetch(dogApi)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Failed to fetch dog breeds");
