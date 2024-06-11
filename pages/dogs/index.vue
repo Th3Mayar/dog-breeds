@@ -3,48 +3,57 @@
     <h1>Dog Breeds</h1>
     <div class="cards">
       <Card
-        breed="Labrador"
-        image="https://imgs.search.brave.com/imuegL19IjLSlEsacxf2w4teOkLLD_YTJUXGc9JNd4Y/rs:fit:860:0:0/g:ce/aHR0cHM6Ly90NC5m/dGNkbi5uZXQvanBn/LzA2LzMxLzIwLzM1/LzM2MF9GXzYzMTIw/MzUxNF9TUVpDNFF4/aTVVbnVvR1hLWTNW/aEZBVFRnWXJSYXd2/SC5qcGc"
-      />
-      <Card
-        breed="Pug"
-        image="https://imgs.search.brave.com/imuegL19IjLSlEsacxf2w4teOkLLD_YTJUXGc9JNd4Y/rs:fit:860:0:0/g:ce/aHR0cHM6Ly90NC5m/dGNkbi5uZXQvanBn/LzA2LzMxLzIwLzM1/LzM2MF9GXzYzMTIw/MzUxNF9TUVpDNFF4/aTVVbnVvR1hLWTNW/aEZBVFRnWXJSYXd2/SC5qcGc"
-      />
-      <Card
-        breed="Bulldog"
-        image="https://imgs.search.brave.com/imuegL19IjLSlEsacxf2w4teOkLLD_YTJUXGc9JNd4Y/rs:fit:860:0:0/g:ce/aHR0cHM6Ly90NC5m/dGNkbi5uZXQvanBn/LzA2LzMxLzIwLzM1/LzM2MF9GXzYzMTIw/MzUxNF9TUVpDNFF4/aTVVbnVvR1hLWTNW/aEZBVFRnWXJSYXd2/SC5qcGc"
-      />
-      <Card
-        breed="Labrador"
-        image="https://imgs.search.brave.com/imuegL19IjLSlEsacxf2w4teOkLLD_YTJUXGc9JNd4Y/rs:fit:860:0:0/g:ce/aHR0cHM6Ly90NC5m/dGNkbi5uZXQvanBn/LzA2LzMxLzIwLzM1/LzM2MF9GXzYzMTIw/MzUxNF9TUVpDNFF4/aTVVbnVvR1hLWTNW/aEZBVFRnWXJSYXd2/SC5qcGc"
-      />
-      <Card
-        breed="Labrador"
-        image="https://imgs.search.brave.com/imuegL19IjLSlEsacxf2w4teOkLLD_YTJUXGc9JNd4Y/rs:fit:860:0:0/g:ce/aHR0cHM6Ly90NC5m/dGNkbi5uZXQvanBn/LzA2LzMxLzIwLzM1/LzM2MF9GXzYzMTIw/MzUxNF9TUVpDNFF4/aTVVbnVvR1hLWTNW/aEZBVFRnWXJSYXd2/SC5qcGc"
-      />
-      <Card
-        breed="Labrador"
-        image="https://imgs.search.brave.com/imuegL19IjLSlEsacxf2w4teOkLLD_YTJUXGc9JNd4Y/rs:fit:860:0:0/g:ce/aHR0cHM6Ly90NC5m/dGNkbi5uZXQvanBn/LzA2LzMxLzIwLzM1/LzM2MF9GXzYzMTIw/MzUxNF9TUVpDNFF4/aTVVbnVvR1hLWTNW/aEZBVFRnWXJSYXd2/SC5qcGc"
+        v-for="dog in dogs"
+        :key="dog.id"
+        :name="dog.name"
+        :breeds="dog.breeds.map((breed) => breed.name).join(', ')"
+        :image="dog.image"
       />
     </div>
   </div>
 </template>
 
+<script lang="ts">
+import { dogApi } from "../../api/dog-api";
+
+export default defineComponent({
+  setup() {
+    const dogs = ref([]);
+
+    fetch(process.env.URL_API_DOGS ?? "http://localhost:4000/dogs")
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to fetch dog breeds");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        dogs.value = data;
+      })
+      .catch((error) => {
+        console.error("Error fetching dog breeds:", error);
+      });
+
+    return { dogs };
+  },
+});
+</script>
+
 <style scoped>
-  .cards{
-    display: flex;
-    gap: 50px;
-    align-items: center;
-  }
-  .content{
-    display: flex;
+.cards {
+  display: flex;
+  gap: 50px;
+  align-items: center;
+}
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+@media (max-width: 800px) {
+  .cards {
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
   }
-  @media (max-width: 800px) {
-    .cards{
-      flex-direction: column;
-    }
-  }
+}
 </style>

@@ -3,15 +3,12 @@
     <div class="flip-card-inner">
       <div class="flip-card-front">
         <img :src="image" alt="Dog Image" />
-        <h3>{{ breed }}</h3>
+        <h3>{{ name }}</h3>
       </div>
       <div class="flip-card-back">
-        <h2>Razas</h2>
+        <h2>Family Breed</h2>
         <ul>
-          <li>{{ breed }}</li>
-          <li>{{ breed }}</li>
-          <li>{{ breed }}</li>
-          <li>{{ breed }}</li>
+          <li>{{ breeds }}</li>
         </ul>
       </div>
     </div>
@@ -19,16 +16,22 @@
 </template>
 
 <script lang="ts">
+import { defineComponent } from 'vue';
+
 export default defineComponent({
   props: {
-    breed: {
+    name: {
       type: String,
-      required: true,
+      required: true
+    },
+    breeds: {
+      type: Array,
+      required: true
     },
     image: {
       type: String,
-      required: true,
-    },
+      required: true
+    }
   },
 });
 </script>
