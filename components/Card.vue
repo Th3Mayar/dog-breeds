@@ -16,7 +16,20 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+
+interface Props {
+  name: string;
+  breeds: string[];
+  image: string;
+  className?: string;
+}
+
+defineComponent<Props>({
+  name: "",
+  breeds: [],
+  image: "",
+  className: ""
+});
 
 export default defineComponent({
   props: {
