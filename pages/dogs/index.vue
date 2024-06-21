@@ -13,30 +13,25 @@
   </div>
 </template>
 
-<script lang="ts">
-import { dogApi } from "../../api/dog-api";
+<script>
+import apiClient from "../../api/dog-api";
 // console.log(dogApi)
-export default defineComponent({
+export default {
   setup() {
     const dogs = ref([]);
 
-    fetch(`${dogApi}/dogs`)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Failed to fetch dog breeds");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        dogs.value = data;
-      })
-      .catch((error) => {
-        console.error("Error fetching dog breeds:", error);
-      });
+    onMounted(async () => {
+      try {
+        const response = await apiClient.get('/dogs');
+        dogs.value = response.data;
+      } catch (error) {
+        console.error('Error fetching dog breeds:', error);
+      }
+    });
 
     return { dogs };
-  },
-});
+  }
+};
 </script>
 
 <style scoped>
